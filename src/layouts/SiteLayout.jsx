@@ -1,6 +1,10 @@
+import { lazy, Suspense } from "react"
 import { Outlet } from "react-router-dom"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
+
+// Browser-only — uses WebRTC + microphone, must not run during SSR
+const ConversationalAgent = lazy(() => import("../components/ConversationalAgent"))
 
 export default function SiteLayout() {
   return (
@@ -10,6 +14,9 @@ export default function SiteLayout() {
         <Outlet />
       </main>
       <Footer />
+      <Suspense fallback={null}>
+        <ConversationalAgent />
+      </Suspense>
     </div>
   )
 }
