@@ -1,10 +1,10 @@
 export const siteConfig = {
-  url: "https://www.sahyogai.in",
+  url: "https://www.sahayogai.in",
   name: "SahyogAI",
   tagline: "AI Voice Agents for Instant Lead Follow-Up",
   description:
     "SahyogAI's AI voice agents call back every inbound lead within 60 seconds, qualify prospects, and book demos 24/7. Stop losing leads to competitors. India's #1 AI calling system.",
-  ogImage: "https://www.sahyogai.in/assets/og-image.png",
+  ogImage: "https://www.sahayogai.in/assets/og-image.png",
 }
 
 export const nav = {

@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 
 # Point all crawlers to the sitemap
-Sitemap: https://www.sahyogai.in/sitemap.xml
+Sitemap: https://www.sahayogai.in/sitemap.xml
