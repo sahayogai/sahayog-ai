@@ -1,13 +1,27 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import './index.css'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
+const rootEl = document.getElementById('root')
+
+const tree = (
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
+    <HelmetProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </HelmetProvider>
+  </StrictMode>
 )
+
+// childElementCount > 0 means pre-rendered HTML is present (SSR build).
+// A plain comment node (<!--ssr-outlet-->) is NOT an element, so dev / npm run build
+// both fall through to createRoot and work as a normal React app.
+if (rootEl.childElementCount > 0) {
+  hydrateRoot(rootEl, tree)
+} else {
+  createRoot(rootEl).render(tree)
+}

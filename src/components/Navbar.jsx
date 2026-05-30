@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { nav } from "../content/site"
+import { nav, contact } from "../content/site"
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -66,13 +66,22 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA + Phone */}
           <motion.div
-            className="hidden md:flex items-center"
+            className="hidden md:flex items-center gap-3"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.55 }}
           >
+            <a
+              href={contact.phoneHref}
+              className="flex items-center gap-1.5 text-gray-700 font-medium text-sm hover:text-primary transition-colors duration-200"
+            >
+              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+              </svg>
+              {contact.phoneDisplay}
+            </a>
             <a href={nav.cta.href}>
               <button className="bg-gradient-btn hover:opacity-90 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-sm">
                 {nav.cta.label}
@@ -122,6 +131,16 @@ export default function Navbar() {
               <button className="w-full mt-2 bg-gradient-btn text-white font-semibold px-6 py-3 rounded-xl shadow-md text-sm">
                 {nav.cta.label}
               </button>
+            </a>
+            <a
+              href={contact.phoneHref}
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center justify-center gap-2 mt-1 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-700 font-medium text-sm hover:bg-purple-50 hover:text-primary transition-colors duration-200"
+            >
+              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+              </svg>
+              {contact.phoneDisplay}
             </a>
           </motion.div>
         )}

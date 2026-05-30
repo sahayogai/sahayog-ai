@@ -1,3 +1,12 @@
+export const siteConfig = {
+  url: "https://www.sahyogai.in",
+  name: "SahyogAI",
+  tagline: "AI Voice Agents for Instant Lead Follow-Up",
+  description:
+    "SahyogAI's AI voice agents call back every inbound lead within 60 seconds, qualify prospects, and book demos 24/7. Stop losing leads to competitors. India's #1 AI calling system.",
+  ogImage: "https://www.sahyogai.in/assets/og-image.png",
+}
+
 export const nav = {
   brand: "SahyogAI",
   links: [
@@ -158,6 +167,12 @@ export const process = {
 
 export const booking = {
   heading: "Book a Free Strategy Call",
+}
+
+export const contact = {
+  phone: "9322365844",
+  phoneDisplay: "+91 93223 65844",
+  phoneHref: "tel:+919322365844",
 }
 
 export const footer = {
