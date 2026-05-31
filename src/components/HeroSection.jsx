@@ -1,6 +1,7 @@
 import { motion } from "framer-motion"
 import { useRef } from "react"
 import { useLanguage } from "../i18n/LanguageContext"
+import { trackCTA } from "../analytics/events"
 
 function GlowOrb({ style, animate, transition }) {
   return (
@@ -98,12 +99,19 @@ export default function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.85 }}
           >
-            <a href={hero.cta.href}>
+            <a
+              href={hero.cta.href}
+              onClick={() => trackCTA("hero_primary", { text: hero.cta.label, location: "hero", url: hero.cta.href })}
+            >
               <button className="bg-gradient-btn hover:opacity-90 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-[0_8px_24px_rgba(124,59,237,0.35)] transition-all duration-300 text-base">
                 {hero.cta.label}
               </button>
             </a>
-            <a href={hero.ctaSecond.href} className="text-gray-600 font-medium text-sm hover:text-primary transition-colors duration-200 flex items-center gap-1.5">
+            <a
+              href={hero.ctaSecond.href}
+              onClick={() => trackCTA("hero_secondary", { text: hero.ctaSecond.label, location: "hero", url: hero.ctaSecond.href })}
+              className="text-gray-600 font-medium text-sm hover:text-primary transition-colors duration-200 flex items-center gap-1.5"
+            >
               {hero.ctaSecond.label}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />

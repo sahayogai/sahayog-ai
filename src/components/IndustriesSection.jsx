@@ -1,6 +1,7 @@
 import { useState, useRef } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
 import { useLanguage } from "../i18n/LanguageContext"
+import { trackCTA, trackIndustrySelect } from "../analytics/events"
 
 // ── Icons — white outline, visible at ~25% opacity ──────────────────────────
 const ICON = (path, path2) => (
@@ -108,6 +109,7 @@ function IndustryCard({ card, industryId, label, gradientFrom, gradientTo, delay
         {/* CTA */}
         <a
           href="#booking"
+          onClick={() => trackCTA("industry_card_book", { text: cardCta, location: `industries_${industryId}`, url: "#booking" })}
           className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-dark transition-colors duration-200"
         >
           {cardCta}
@@ -158,6 +160,12 @@ export default function IndustriesSection() {
 
   const activeIndustry = industries.find((ind) => ind.id === active)
 
+  // Select a vertical and record the interest signal (GA4: industry_select).
+  const selectIndustry = (id, source) => {
+    setActive(id)
+    if (id !== "all") trackIndustrySelect(id, source)
+  }
+
   return (
     <section id="industries" ref={ref} className="py-20 md:py-28 px-4 bg-white">
       <div className="max-w-6xl mx-auto">
@@ -196,7 +204,7 @@ export default function IndustriesSection() {
             return (
               <button
                 key={id}
-                onClick={() => setActive(id)}
+                onClick={() => selectIndustry(id, "filter")}
                 className={`text-sm font-medium rounded-full px-4 py-1.5 border transition-all duration-200 whitespace-nowrap ${
                   isActive
                     ? "bg-primary text-white border-primary shadow-sm"
@@ -226,7 +234,7 @@ export default function IndustriesSection() {
                   industry={ind}
                   inView={inView}
                   delay={i * 0.05}
-                  onClick={() => setActive(ind.id)}
+                  onClick={() => selectIndustry(ind.id, "card")}
                 />
               ))}
             </motion.div>
@@ -263,7 +271,11 @@ export default function IndustriesSection() {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           {ui.industriesBottomNote}{" "}
-          <a href={cta.href} className="font-semibold text-primary hover:underline">
+          <a
+            href={cta.href}
+            onClick={() => trackCTA("industries_bottom", { text: cta.label, location: "industries", url: cta.href })}
+            className="font-semibold text-primary hover:underline"
+          >
             {cta.label} →
           </a>
         </motion.p>

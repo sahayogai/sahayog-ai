@@ -3,8 +3,13 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { LanguageProvider } from './i18n/LanguageContext'
+import { initAnalytics } from './analytics/ga'
 import './index.css'
 import App from './App.jsx'
+
+// Client-only: re-applies stored consent + logs status in debug mode.
+// The base gtag.js tag already loaded + sent the first page_view from index.html.
+initAnalytics()
 
 const rootEl = document.getElementById('root')
 

@@ -1,5 +1,7 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react"
+import { createContext, useContext, useState, useEffect, useCallback, useRef } from "react"
 import { LANGUAGES, DEFAULT_LANG, getContent } from "./translations"
+import { trackLanguageChange } from "../analytics/events"
+import { setUserLanguage } from "../analytics/ga"
 
 const VALID_CODES = new Set(LANGUAGES.map((l) => l.code))
 
@@ -13,14 +15,26 @@ function getLangFromURL() {
 
 export function LanguageProvider({ children }) {
   const [lang, setLangState] = useState(DEFAULT_LANG)
+  // Mirror of `lang` for use inside the stable setLang callback (avoids stale closure).
+  const langRef = useRef(DEFAULT_LANG)
+  useEffect(() => { langRef.current = lang }, [lang])
 
   // Sync from URL on mount (after hydration) so ?lang=hin works on shared links.
   useEffect(() => {
-    setLangState(getLangFromURL())
+    const initial = getLangFromURL()
+    setLangState(initial)
+    // Record the language the visitor actually lands on (incl. shared ?lang= links)
+    // as a GA4 user property, so every event is segmentable by language.
+    setUserLanguage(initial)
   }, [])
 
   const setLang = useCallback((code) => {
     if (!VALID_CODES.has(code)) return
+    const prev = langRef.current
+    if (code !== prev) {
+      trackLanguageChange(code, prev) // GA4: explicit user-initiated switch
+      setUserLanguage(code)
+    }
     setLangState(code)
     const url = new URL(window.location.href)
     if (code === DEFAULT_LANG) {

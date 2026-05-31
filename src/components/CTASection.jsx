@@ -1,6 +1,7 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 import { useLanguage } from "../i18n/LanguageContext"
+import { trackCTA, trackContact } from "../analytics/events"
 
 export default function CTASection() {
   const ref = useRef(null)
@@ -70,7 +71,10 @@ export default function CTASection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.55, delay: 0.3 }}
         >
-          <a href={cta.primary.href}>
+          <a
+            href={cta.primary.href}
+            onClick={() => trackCTA("cta_section_primary", { text: cta.primary.label, location: "cta_section", url: cta.primary.href })}
+          >
             <button className="bg-gradient-btn hover:opacity-90 text-white font-semibold px-8 py-4 rounded-xl shadow-[0_8px_24px_rgba(124,59,237,0.35)] hover:shadow-[0_12px_32px_rgba(124,59,237,0.45)] transition-all duration-300 text-base">
               {cta.primary.label}
             </button>
@@ -79,6 +83,7 @@ export default function CTASection() {
             href={cta.secondary.href}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackContact("whatsapp", "cta_section")}
             className="flex items-center gap-2 text-white/70 text-sm font-medium hover:text-white transition-colors duration-200"
           >
             {/* WhatsApp icon */}

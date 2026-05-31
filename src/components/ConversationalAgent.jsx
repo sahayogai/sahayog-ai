@@ -6,6 +6,7 @@
 import { useState, useEffect, useRef, Suspense, lazy } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { PipecatAppBase, usePipecatConnectionState } from "@pipecat-ai/voice-ui-kit"
+import { voiceAgent } from "../analytics/events"
 
 const PlasmaComp = lazy(() =>
   import("@pipecat-ai/voice-ui-kit/webgl").then((m) => ({ default: m.Plasma }))
@@ -59,14 +60,22 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
   const timerRef = useRef(null)
   const stopRef = useRef(null)
   const isStoppingRef = useRef(false)
+  const connectedFiredRef = useRef(false) // GA4: fire voice_agent_connected once per session
 
   const { isConnecting } = usePipecatConnectionState()
 
   useEffect(() => {
     if (!client) return
-    const onBotStart = () => { setIsThinking(false); setIsSpeaking(true) }
+    // First bot/user speech = a live connection was actually established → "connected".
+    const markConnected = () => {
+      if (!connectedFiredRef.current) {
+        connectedFiredRef.current = true
+        voiceAgent.connected()
+      }
+    }
+    const onBotStart = () => { markConnected(); setIsThinking(false); setIsSpeaking(true) }
     const onBotStop  = () => setIsSpeaking(false)
-    const onUserStop = () => setIsThinking(true)
+    const onUserStop = () => { markConnected(); setIsThinking(true) }
     client.on("botStartedSpeaking", onBotStart)
     client.on("botStoppedSpeaking", onBotStop)
     client.on("userStoppedSpeaking", onUserStop)
@@ -76,6 +85,11 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
       client.off("userStoppedSpeaking", onUserStop)
     }
   }, [client])
+
+  // Report connection errors to GA4.
+  useEffect(() => {
+    if (error) voiceAgent.error("connection")
+  }, [error])
 
   // Respond to speaking / thinking state by updating plasma intensity
   useEffect(() => {
@@ -100,17 +114,20 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
   }, [open])
 
   async function start() {
+    voiceAgent.start() // user tapped "Talk to Arjun"
     setPermissionDenied(false)
     try {
       await navigator.mediaDevices.getUserMedia({ audio: true })
     } catch {
       setPermissionDenied(true)
+      voiceAgent.permissionDenied()
       return
     }
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext
       if (AudioCtx) { const c = new AudioCtx(); await c.resume(); await c.close() }
     } catch (_) {}
+    connectedFiredRef.current = false
     setOpen(true)
     await handleConnect?.()
   }
@@ -118,6 +135,13 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
   async function stop() {
     if (isStoppingRef.current) return
     isStoppingRef.current = true
+    if (open) {
+      // secondsLeft counts down from 300; ~0 means the hard timer ended it.
+      voiceAgent.end({
+        durationSeconds: Math.max(0, 300 - secondsLeft),
+        reason: secondsLeft <= 1 ? "timeout" : "user_ended",
+      })
+    }
     clearInterval(timerRef.current)
     setOpen(false)
     setIsSpeaking(false)

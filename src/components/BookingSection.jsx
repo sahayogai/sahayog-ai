@@ -1,10 +1,14 @@
 import Cal, { getCalApi } from "@calcom/embed-react"
 import { useEffect } from "react"
 import { useLanguage } from "../i18n/LanguageContext"
+import { trackBookingWidgetReady, trackBookingStarted, trackBookingSuccess } from "../analytics/events"
 
 export default function BookingSection() {
   const { booking } = useLanguage().t
   useEffect(() => {
+    let cleanup = () => {}
+    let leadSent = false // guard: success can fire more than once across Cal versions
+
     ;(async function () {
       const cal = await getCalApi({ namespace: "30min" })
       cal("ui", {
@@ -12,7 +16,32 @@ export default function BookingSection() {
         hideEventTypeDetails: true,
         layout: "month_view",
       })
+
+      // ── GA4 booking funnel: widget_ready → booking_started → generate_lead ──
+      const onReady = () => trackBookingWidgetReady()
+      const onStarted = () => trackBookingStarted()
+      const onSuccess = (e) => {
+        if (leadSent) return
+        leadSent = true
+        const data = e?.detail?.data
+        trackBookingSuccess({
+          booking_uid: data?.booking?.uid || data?.uid,
+          event_type: data?.eventType?.slug || "30min",
+        })
+      }
+
+      cal("on", { action: "linkReady", callback: onReady })
+      cal("on", { action: "eventTypeSelected", callback: onStarted })
+      cal("on", { action: "bookingSuccessful", callback: onSuccess })
+
+      cleanup = () => {
+        cal("off", { action: "linkReady", callback: onReady })
+        cal("off", { action: "eventTypeSelected", callback: onStarted })
+        cal("off", { action: "bookingSuccessful", callback: onSuccess })
+      }
     })()
+
+    return () => cleanup()
   }, [])
 
   return (
