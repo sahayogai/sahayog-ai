@@ -1,186 +1,613 @@
 export const siteConfig = {
-  url: "https://www.sahayogai.in",
+  url: "https://www.sahyogai.in",
   name: "SahyogAI",
-  tagline: "AI Voice Agents for Instant Lead Follow-Up",
+  tagline: "AI-First Business Transformation & Technology Enablement",
   description:
-    "SahyogAI's AI voice agents call back every inbound lead within 60 seconds, qualify prospects, and book demos 24/7. Stop losing leads to competitors. India's #1 AI calling system.",
-  ogImage: "https://www.sahayogai.in/assets/og-image.png",
+    "SahyogAI helps SMEs and local businesses embrace AI, automation, and modern technology to streamline operations, improve customer experiences, and accelerate growth.",
+  ogImage: "https://www.sahyogai.in/assets/og-image.png",
 }
 
 export const nav = {
   brand: "SahyogAI",
+  badge: "AI-First",
   links: [
-    { label: "Home", href: "/" },
-    { label: "What We Do", href: "#comparison" },
-    { label: "Contact", href: "#booking" },
+    { label: "Services",     href: "#services" },
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "Industries",   href: "#industries" },
   ],
-  cta: { label: "Book a Demo", href: "#booking" },
+  cta: { label: "Book a Call", href: "#booking" },
 }
 
 export const hero = {
-  heading: ["AI Voice Agents, Made", "Simple"],
+  badge: "AI · Automation · Growth",
+  heading: ["Helping SMEs & Local Businesses Grow with", "AI-First Technology"],
   subheading:
-    "Stop Losing Leads To Competition. Our AI calls back in 60 seconds, qualifies prospects, and fills your calendar — day or night.",
-  cta: { label: "Book a Free Demo", href: "#booking" },
-}
-
-export const comparison = {
-  heading: ["Still Losing Money to Missed", "Opportunities?"],
-  left: {
-    title: "Traditional Sales Systems",
-    items: [
-      {
-        icon: "x",
-        title: "Manual Follow-Ups",
-        body: "Your sales team is buried in follow-up calls, WhatsApp messages, and data entry — instead of closing deals.",
-      },
-      {
-        icon: "x",
-        title: "Leads Go Cold Fast",
-        body: "Prospects enquire with 3–4 competitors at once. If you don't call within 5 minutes, they've already moved on.",
-      },
-      {
-        icon: "x",
-        title: "Wasted Time on Tyre-Kickers",
-        body: "Hours spent sorting serious buyers from time-wasters, pulling your best people away from real prospects.",
-      },
-      {
-        icon: "x",
-        title: "High Staffing Costs",
-        body: "You're paying telecallers, BPO agents, or inside-sales staff to handle routine follow-ups AI can do for a fraction of the cost.",
-      },
-      {
-        icon: "x",
-        title: "Inconsistent Follow-Up",
-        body: "Reps forget, get busy, or give up after 2 calls — while hot leads slip to competitors who stayed persistent.",
-      },
-    ],
-    image: "/assets/oldway2.png",
-  },
-  right: {
-    title: "The FutureFlow System",
-    items: [
-      {
-        icon: "phone",
-        title: "Speed-to-Lead Advantage",
-        body: "Calls back every inbound enquiry within 60 seconds — before any competitor picks up the phone, increasing conversions by 20x.",
-      },
-      {
-        icon: "target",
-        title: "Never Miss an Enquiry",
-        body: "Captures every lead from Facebook Ads, Google, JustDial, or any portal — 24/7, with zero gaps or delays.",
-      },
-      {
-        icon: "shield",
-        title: "Smart Lead Qualification",
-        body: "AI filters serious buyers from time-wasters using your own criteria, so your team only speaks to sales-ready prospects.",
-      },
-      {
-        icon: "rupee",
-        title: "Lower Operational Costs",
-        body: "Costs a fraction of one telecaller or BPO agent — and performs like an entire inside-sales team, round the clock.",
-      },
-      {
-        icon: "lightning",
-        title: "Relentless Follow-Up",
-        body: "Follows up persistently across multiple touchpoints until the prospect converts or clearly opts out — no lapses, no excuses.",
-      },
-    ],
-    image: "/assets/futureflowsysytem.png",
-  },
-}
-
-export const integrations = {
-  heading: "Integrates Directly Into Your Current Stack",
-  subheading:
-    "Using the power of APIs, we connect the FutureFlow system to your existing CRM, calendar, and lead sources in days — not months.",
-  cta: { label: "Book a Free Demo", href: "#booking" },
-  logos: [
-    { src: "/assets/features/hubspot.webp", alt: "HubSpot" },
-    { src: "/assets/features/gohighlevel.png", alt: "Go High Level" },
-    { src: "/assets/features/salesforce.png", alt: "Salesforce" },
-    { src: "/assets/features/i1.png", alt: "Integration 1" },
-    { src: "/assets/features/i2.png", alt: "Integration 2" },
-    { src: "/assets/features/i3.png", alt: "Integration 3" },
+    "SahyogAI partners with businesses to adopt AI, automate operations, modernise technology, and unlock sustainable growth through practical digital transformation.",
+  cta:       { label: "Book Free Consultation", href: "#booking" },
+  ctaSecond: { label: "See How It Works", href: "#how-it-works" },
+  trust: [
+    "No commitment required",
+    "Free 45-min strategy session",
+    "Results in 30 days",
+  ],
+  stats: [
+    { value: "50+",  label: "SMEs Transformed" },
+    { value: "3×",   label: "Average Efficiency Gain" },
+    { value: "30d",  label: "To First Results" },
   ],
 }
 
-export const features = {
-  heading: "Features You'll Actually Love",
-  subheading:
-    "Our AI calls back within 60 seconds of a lead filling in a form — making them 21x more likely to convert before they talk to anyone else.",
+export const trustBar = {
+  label: "Trusted by growing businesses across",
+  logos: [
+    { name: "Mehta",        style: "font-bold tracking-tight uppercase" },
+    { name: "Sharma Co.",   style: "font-light tracking-widest" },
+    { name: "QuickServe",   style: "font-extrabold tracking-tight" },
+    { name: "AxisRetail",   style: "font-bold tracking-tight" },
+    { name: "Fielddrop",    style: "font-medium italic" },
+    { name: "CareLab",      style: "font-semibold tracking-wide" },
+  ],
+}
+
+export const services = {
+  heading: "Everything Your Business Needs to Thrive in the Age of AI",
+  subheading: "Four interconnected practices that work together to transform how your business operates.",
   items: [
     {
-      title: "CRM Integration",
-      body: "Works with Zoho, HubSpot, Salesforce, and 100+ CRMs. Fits straight into your existing workflow without disruption.",
-      image: "/assets/features/crm-integration.png",
+      number: "01",
+      title: "AI Enablement",
+      description: "AI strategy, agents, voice AI, WhatsApp AI, and knowledge assistants built around your actual workflows.",
+      pills: ["AI Agents", "Voice AI", "WhatsApp AI", "Knowledge Base", "AI Workflows"],
+      cta: "Explore →",
     },
     {
-      title: "Calendar Booking",
-      body: "Books qualified prospects directly into your calendar — no back-and-forth, no WhatsApp coordination needed.",
-      image: "/assets/features/calendar-booking.png",
+      number: "02",
+      title: "Technology Enablement",
+      description: "SaaS platforms, business applications, cloud infrastructure, and system integrations that scale with you.",
+      pills: ["SaaS", "Custom Apps", "Cloud", "Integrations", "Internal Tools"],
+      cta: "Explore →",
     },
     {
-      title: "Lead Qualification",
-      body: "Pre-screens every enquiry against your criteria before connecting them to your team — only serious buyers get through.",
-      image: "/assets/features/lead-qualification.png",
+      number: "03",
+      title: "Automation",
+      description: "End-to-end workflow, CRM, sales, operations, and marketing automation that eliminates manual work.",
+      pills: ["Workflow", "CRM", "Sales", "Marketing", "Operations"],
+      cta: "Explore →",
     },
     {
-      title: "Multi-Call Handling",
-      body: "Handles 10+ conversations simultaneously — no busy tones, no missed calls even during your peak hours.",
-      image: "/assets/features/multi-call-handling.png",
-    },
-    {
-      title: "Multi-Lingual Agents",
-      body: "Communicates in Hindi, English, Tamil, Telugu, and 20+ languages — never lose a lead due to a language barrier.",
-      image: "/assets/features/multi-lingual.png",
-    },
-    {
-      title: "24/7 Availability",
-      body: "Captures leads at midnight, on Sundays, and during holidays — whenever your competitors are offline.",
-      image: "/assets/features/availability.png",
+      number: "04",
+      title: "Digital Transformation",
+      description: "Process modernisation, customer experience systems, dashboards, and data analytics for decision-ready businesses.",
+      pills: ["Process Design", "CX Systems", "Dashboards", "Analytics"],
+      cta: "Explore →",
     },
   ],
 }
 
-export const process = {
-  label: "Process",
-  heading: "How It Works?",
+export const uvp = {
+  eyebrow: "WHY SAHYOGAI",
+  heading: ["Most agencies start with", "technology.", "We start with", "your business."],
+  body: "We first study your operations, identify where AI and technology can create the most value, design a solution that fits how you actually work, and then build it — so every tool we deploy has a clear business outcome behind it.",
+  cta: { label: "Book a Strategy Session →", href: "#booking" },
+  comparison: {
+    left: {
+      label: "Technology First",
+      items: [
+        "Pick a tool, then find use cases",
+        "Implement without understanding operations",
+        "Generic solution, misaligned outcomes",
+        "Post-deployment hand-off",
+        "You figure out adoption",
+      ],
+    },
+    right: {
+      label: "Business First",
+      items: [
+        "Understand your business first",
+        "Identify real opportunities",
+        "Design fit-for-purpose solutions",
+        "Partner through the journey",
+        "Measure real business outcomes",
+      ],
+    },
+  },
+}
+
+export const howItWorks = {
+  eyebrow: "OUR PROCESS",
+  heading: "A Framework Built for Real Business Transformation",
+  subheading: "Four phases. One continuous improvement loop. Zero tech-for-tech's-sake.",
   steps: [
     {
-      number: "1",
-      title: "System Audit",
-      body: "We study your current sales funnel, identify exactly where leads are falling off, and map the AI solution to your business model.",
+      number: "01",
+      title: "Understand",
+      body: "We study your business processes, goals, bottlenecks, and opportunities from the ground up.",
     },
     {
-      number: "2",
-      title: "Build & Integrate",
-      body: "Our team builds your custom AI voice agent and connects it to your CRM, calendar, and lead sources — live within days, not months.",
+      number: "02",
+      title: "Identify",
+      body: "Pinpoint the highest-impact areas where AI and automation will create measurable value.",
     },
     {
-      number: "3",
-      title: "Launch & Optimise",
-      body: "We go live alongside you, monitor every conversation, and continuously tune the AI to maximise conversion rates for your market.",
+      number: "03",
+      title: "Transform",
+      body: "Implement AI, workflows, and technology solutions built specifically for your context.",
+    },
+    {
+      number: "04",
+      title: "Scale",
+      body: "Measure outcomes, expand capabilities, and continuously improve as your business grows.",
+    },
+  ],
+  badge: "Typical time to first results: 30 days",
+}
+
+export const aiServices = {
+  heading: "AI That Actually Works for Your Business",
+  subheading: "Not generic AI. Purpose-built agents, voice systems, and knowledge tools designed around how your business operates.",
+  items: [
+    {
+      title: "AI Strategy & Roadmapping",
+      body: "Get a clear, prioritised AI adoption plan built around your business goals — not hype.",
+      tag: "Foundation",
+    },
+    {
+      title: "Autonomous AI Agents",
+      body: "Agents that handle tasks, respond to triggers, and complete workflows without human intervention.",
+      tag: "Core",
+      badge: "Most Popular",
+    },
+    {
+      title: "Voice AI Systems",
+      body: "Intelligent voice agents for customer support, sales calls, and business communication — available 24/7.",
+      tag: "Customer-Facing",
+    },
+    {
+      title: "WhatsApp AI",
+      body: "Automate customer conversations, lead qualification, and order handling directly in WhatsApp.",
+      tag: "Messaging",
+    },
+    {
+      title: "Knowledge Assistants",
+      body: "Internal AI tools that answer questions, find documents, and surface business insights instantly.",
+      tag: "Internal",
+    },
+    {
+      title: "AI Workflows",
+      body: "Multi-step automated workflows orchestrated by AI — from data processing to client onboarding.",
+      tag: "Automation",
     },
   ],
 }
 
-export const booking = {
-  heading: "Book a Free Strategy Call",
+export const metrics = [
+  { value: "3×",    label: "Efficiency Improvement" },
+  { value: "60%",   label: "Reduction in Manual Work" },
+  { value: "30 days", label: "Time to First Results" },
+  { value: "50+",   label: "Businesses Transformed" },
+]
+
+export const testimonials = [
+  {
+    stars: 5,
+    quote: "SahyogAI didn't just give us software — they understood our business first and then built something that actually solved our problem.",
+    name: "Rajesh Mehta",
+    company: "Mehta Electronics",
+    initials: "RM",
+  },
+  {
+    stars: 5,
+    quote: "Our WhatsApp AI handles 70% of customer queries now. Our team can focus on what actually needs a human.",
+    name: "Priya Sharma",
+    company: "Sharma Catering Co.",
+    initials: "PS",
+  },
+  {
+    stars: 5,
+    quote: "In 30 days we had a fully automated sales pipeline. The ROI was visible within the first week.",
+    name: "Amit Joshi",
+    company: "QuickServe Logistics",
+    initials: "AJ",
+  },
+]
+
+export const industriesData = {
+  heading: "Built for Businesses Like Yours",
+  subheadingDefault: "Select your industry to see exactly how SahyogAI works for you.",
+  cta: { label: "Talk to us", href: "#booking" },
+  industries: [
+    {
+      id: "retail",
+      label: "Retail",
+      gradientFrom: "#ede9fe",
+      gradientTo: "#8b5cf6",
+      allTitle: "Smart Inventory & Sales AI",
+      allOutcome: "↑ 40% lead conversion",
+      allImage: "/assets/industries/retail_inventory_ai.png",
+      cards: [
+        {
+          title: "Smart Inventory & Sales AI",
+          aiLabel: "AI Agent + WhatsApp AI",
+          stat: "40%", statLabel: "reduction in stockouts",
+          image: "/assets/industries/retail_inventory_ai.png",
+          bullets: [
+            "AI monitors stock levels and auto-raises purchase orders",
+            "WhatsApp bot handles customer enquiries and order status 24/7",
+            "Sales trend reports generated automatically every morning",
+          ],
+        },
+        {
+          title: "WhatsApp Sales Bot",
+          aiLabel: "WhatsApp AI + AI Workflows",
+          stat: "3×", statLabel: "more leads converted via WhatsApp",
+          image: "/assets/industries/retail_whatsapp_bot.png",
+          bullets: [
+            "Responds to product enquiries instantly, any time of day",
+            "Sends personalised offers and follow-ups automatically",
+            "Captures lead details and pushes to CRM without manual entry",
+          ],
+        },
+        {
+          title: "Customer Loyalty AI",
+          aiLabel: "AI Agent + Workflow Automation",
+          stat: "60%", statLabel: "increase in repeat purchases",
+          image: "/assets/industries/retail_loyalty_ai.png",
+          bullets: [
+            "AI identifies at-risk customers and triggers win-back campaigns",
+            "Automated birthday and milestone messages with personalised offers",
+            "Loyalty point tracking and redemption handled automatically",
+          ],
+        },
+      ],
+    },
+    {
+      id: "hospitality",
+      label: "Hospitality",
+      gradientFrom: "#f5f3ff",
+      gradientTo: "#7c3bed",
+      allTitle: "Voice AI Reservations",
+      allOutcome: "↓ 50% no-show rate",
+      allImage: "/assets/industries/hospitality_voice_res.png",
+      cards: [
+        {
+          title: "Voice AI Reservations",
+          aiLabel: "Voice AI + WhatsApp AI",
+          stat: "50%", statLabel: "fewer no-shows",
+          image: "/assets/industries/hospitality_voice_res.png",
+          bullets: [
+            "AI handles table bookings by phone and WhatsApp 24/7",
+            "Sends confirmation and reminder messages automatically",
+            "Manages cancellations and waitlist without staff involvement",
+          ],
+        },
+        {
+          title: "Guest Experience Bot",
+          aiLabel: "WhatsApp AI + Knowledge Assistant",
+          stat: "90%", statLabel: "of guest queries resolved instantly",
+          image: "/assets/industries/hospitality_guest_bot.png",
+          bullets: [
+            "Answers menu, pricing, and opening hour queries instantly",
+            "Handles special request intake and passes to kitchen/staff",
+            "Post-visit review requests sent automatically",
+          ],
+        },
+        {
+          title: "Operations Automation",
+          aiLabel: "Workflow Automation + AI Agent",
+          stat: "4hrs", statLabel: "saved per day on admin tasks",
+          image: "/assets/industries/hospitality_ops_ai.png",
+          bullets: [
+            "Daily staff schedule generation and notification automated",
+            "Inventory low-stock alerts and supplier orders triggered by AI",
+            "End-of-day sales and cover reports generated automatically",
+          ],
+        },
+      ],
+    },
+    {
+      id: "logistics",
+      label: "Logistics",
+      gradientFrom: "#4c1d95",
+      gradientTo: "#7c3bed",
+      allTitle: "Automated Operations",
+      allOutcome: "↓ 35% delivery delays",
+      allImage: "/assets/industries/logistics_auto_ops.png",
+      cards: [
+        {
+          title: "Automated Operations",
+          aiLabel: "AI Workflows + Automation",
+          stat: "35%", statLabel: "reduction in delivery delays",
+          image: "/assets/industries/logistics_auto_ops.png",
+          bullets: [
+            "AI allocates routes and drivers based on real-time conditions",
+            "Automated dispatch notifications and ETAs sent to customers",
+            "Exception alerts trigger escalation workflows instantly",
+          ],
+        },
+        {
+          title: "Driver & Delivery AI",
+          aiLabel: "AI Agent + WhatsApp AI",
+          stat: "2×", statLabel: "more deliveries per driver per day",
+          image: "/assets/industries/logistics_driver_ai.png",
+          bullets: [
+            "AI assigns optimal delivery sequences automatically",
+            "Driver check-in and proof-of-delivery captured via WhatsApp",
+            "Real-time re-routing when delays or issues are detected",
+          ],
+        },
+        {
+          title: "Customer Tracking Bot",
+          aiLabel: "WhatsApp AI + Workflow Automation",
+          stat: "80%", statLabel: "reduction in 'where is my order?' calls",
+          image: "/assets/industries/logistics_tracking.png",
+          bullets: [
+            "Automated dispatch, in-transit, and delivery notifications",
+            "Customers can query order status on WhatsApp any time",
+            "Escalation to human agent triggered automatically if needed",
+          ],
+        },
+      ],
+    },
+    {
+      id: "healthcare",
+      label: "Healthcare",
+      gradientFrom: "#ede9fe",
+      gradientTo: "#a78bfa",
+      allTitle: "Patient Scheduling AI",
+      allOutcome: "↓ 40% no-shows",
+      allImage: "/assets/industries/healthcare_scheduling.png",
+      cards: [
+        {
+          title: "Patient Scheduling AI",
+          aiLabel: "Voice AI + WhatsApp AI",
+          stat: "40%", statLabel: "fewer no-shows",
+          image: "/assets/industries/healthcare_scheduling.png",
+          bullets: [
+            "Handles appointment bookings via WhatsApp and voice, 24/7",
+            "Sends automated reminders 24hrs and 2hrs before appointment",
+            "Reschedule and cancellation handled without staff involvement",
+          ],
+        },
+        {
+          title: "Front Desk Automation",
+          aiLabel: "Knowledge Assistant + AI Agent",
+          stat: "3×", statLabel: "more patient queries handled",
+          image: "/assets/industries/healthcare_frontdesk.png",
+          bullets: [
+            "AI answers FAQs about services, fees, timings, and directions",
+            "Handles insurance and panel queries automatically",
+            "Escalates complex queries to staff with full context",
+          ],
+        },
+        {
+          title: "Patient Follow-Up AI",
+          aiLabel: "WhatsApp AI + Workflow Automation",
+          stat: "60%", statLabel: "increase in review submissions",
+          image: "/assets/industries/healthcare_followup.png",
+          bullets: [
+            "Post-visit check-in messages sent automatically",
+            "Medication and follow-up appointment reminders",
+            "Automated Google review request after positive interaction",
+          ],
+        },
+      ],
+    },
+    {
+      id: "finance",
+      label: "Finance",
+      gradientFrom: "#4c1d95",
+      gradientTo: "#6d28d9",
+      allTitle: "Lead Qualification AI",
+      allOutcome: "↑ 5× qualified leads",
+      allImage: "/assets/industries/finance_lead_qual.png",
+      cards: [
+        {
+          title: "Lead Qualification AI",
+          aiLabel: "AI Agent + WhatsApp AI",
+          stat: "5×", statLabel: "more qualified leads converted",
+          image: "/assets/industries/finance_lead_qual.png",
+          bullets: [
+            "AI engages portal/website leads instantly via WhatsApp",
+            "Asks qualifying questions (income, goal, timeline) automatically",
+            "Hands off warm, qualified leads to your advisor with a full brief",
+          ],
+        },
+        {
+          title: "KYC & Document Collection Automation",
+          aiLabel: "WhatsApp AI + Workflow Automation",
+          stat: "70%", statLabel: "reduction in document follow-up time",
+          image: "/assets/industries/finance_kyc.png",
+          bullets: [
+            "AI sends document checklists via WhatsApp with upload links",
+            "Automatically follows up until all documents are received",
+            "Tracks completion status in real time — no manual chasing",
+          ],
+        },
+        {
+          title: "Client Onboarding AI",
+          aiLabel: "AI Workflows + Knowledge Assistant",
+          stat: "2 days", statLabel: "average onboarding time (down from 2 weeks)",
+          image: "/assets/industries/finance_onboarding.png",
+          bullets: [
+            "Guided onboarding flow — AI walks clients through each step",
+            "Automated form filling, e-sign reminders, and welcome sequence",
+            "CRM updated automatically at every milestone",
+          ],
+        },
+      ],
+    },
+    {
+      id: "professional-services",
+      label: "Professional Services",
+      gradientFrom: "#6d28d9",
+      gradientTo: "#8b5cf6",
+      allTitle: "Proposal & Quote Automation",
+      allOutcome: "↑ 80% faster turnaround",
+      allImage: "/assets/industries/prof_proposal.png",
+      cards: [
+        {
+          title: "Proposal & Quote Automation",
+          aiLabel: "AI Agent + Workflow Automation",
+          stat: "80%", statLabel: "faster proposal turnaround",
+          image: "/assets/industries/prof_proposal.png",
+          bullets: [
+            "AI drafts initial proposals from a brief in minutes",
+            "Automatically sends follow-up emails if no response in 48hrs",
+            "Tracks proposal status and flags hot leads to your team",
+          ],
+        },
+        {
+          title: "Client Communication AI",
+          aiLabel: "Knowledge Assistant + WhatsApp AI",
+          stat: "90%", statLabel: "of routine queries resolved without staff",
+          image: "/assets/industries/prof_client_comm.png",
+          bullets: [
+            "AI handles project status queries, timeline questions, and invoicing FAQs",
+            "Sends automated milestone updates to clients proactively",
+            "Escalates urgent or complex issues to the right team member",
+          ],
+        },
+        {
+          title: "Internal Knowledge Assistant",
+          aiLabel: "Knowledge Assistant + AI Workflows",
+          stat: "4hrs", statLabel: "saved per employee per week",
+          image: "/assets/industries/prof_knowledge.png",
+          bullets: [
+            "AI surfaces past project files, case history, and precedents instantly",
+            "Answers internal policy, process, and compliance questions",
+            "New staff onboarding time cut by 60% with AI-guided learning",
+          ],
+        },
+      ],
+    },
+    {
+      id: "education",
+      label: "Education",
+      gradientFrom: "#8b5cf6",
+      gradientTo: "#c4b5fd",
+      allTitle: "Admissions & Enquiry AI",
+      allOutcome: "↑ 3× enquiries converted",
+      allImage: "/assets/industries/edu_admissions.png",
+      cards: [
+        {
+          title: "Admissions & Enquiry AI",
+          aiLabel: "WhatsApp AI + AI Agent",
+          stat: "3×", statLabel: "more admissions enquiries converted",
+          image: "/assets/industries/edu_admissions.png",
+          bullets: [
+            "AI handles every enquiry on WhatsApp — fees, syllabus, batch timings",
+            "Collects student details and qualifies intent automatically",
+            "Books counselling calls and sends reminders without staff effort",
+          ],
+        },
+        {
+          title: "Student Support Bot",
+          aiLabel: "Knowledge Assistant + WhatsApp AI",
+          stat: "24/7", statLabel: "support without extra staff",
+          image: "/assets/industries/edu_student_bot.png",
+          bullets: [
+            "Answers FAQs about schedules, assignments, and exam dates instantly",
+            "Sends automated fee reminders and payment confirmations",
+            "Escalates genuine issues to faculty or admin with full context",
+          ],
+        },
+        {
+          title: "Parent Communication AI",
+          aiLabel: "WhatsApp AI + Workflow Automation",
+          stat: "50%", statLabel: "reduction in admin communication workload",
+          image: "/assets/industries/edu_parent_comm.png",
+          bullets: [
+            "Sends automated progress updates, event reminders, and fee notices",
+            "Handles parent queries on attendance, performance, and schedules",
+            "Translates communications into preferred language automatically",
+          ],
+        },
+      ],
+    },
+    {
+      id: "real-estate",
+      label: "Real Estate",
+      gradientFrom: "#7c3bed",
+      gradientTo: "#1e1b4b",
+      allTitle: "Property Enquiry Bot",
+      allOutcome: "24/7 — never miss a lead",
+      allImage: "/assets/industries/realestate_property.png",
+      cards: [
+        {
+          title: "Lead Qualification & Site Visit AI",
+          aiLabel: "AI Agent + WhatsApp AI",
+          stat: "65%", statLabel: "more site visits booked from portal leads",
+          image: "/assets/industries/realestate_lead.png",
+          bullets: [
+            "AI engages every portal lead within 60 seconds via WhatsApp",
+            "Qualifies budget, timeline, and property preference automatically",
+            "Books site visits and sends confirmation + directions — no manual work",
+          ],
+        },
+        {
+          title: "Property Enquiry Bot",
+          aiLabel: "WhatsApp AI + Knowledge Assistant",
+          stat: "24/7", statLabel: "availability — never miss a lead",
+          image: "/assets/industries/realestate_property.png",
+          bullets: [
+            "Answers availability, pricing, and floor queries instantly",
+            "Sends property brochures, floor plans, and virtual tour links automatically",
+            "Captures buyer details and adds to CRM even at 2am",
+          ],
+        },
+        {
+          title: "Rental Management Automation",
+          aiLabel: "Workflow Automation + WhatsApp AI",
+          stat: "₹0", statLabel: "staff time spent on rent reminders",
+          bullets: [
+            "Automated rent due reminders sent via WhatsApp on schedule",
+            "Maintenance requests logged, assigned, and tracked automatically",
+            "Tenant onboarding flow with agreement signing and welcome sequence",
+          ],
+        },
+      ],
+    },
+  ],
 }
 
-export const contact = {
-  phone: "9322365844",
-  phoneDisplay: "+91 93223 65844",
-  phoneHref: "tel:+919322365844",
+export const cta = {
+  eyebrow: "GET STARTED",
+  heading: ["Ready to Build a Business", "That Runs Smarter?"],
+  subheading: "Book a free 45-minute AI audit and walk away with a clear, prioritised roadmap for adopting AI and automation in your business — no commitment required.",
+  primary: { label: "Get My Free AI Audit →", href: "#booking" },
+  secondary: { label: "Or WhatsApp us now →", href: "https://wa.me/919322365844" },
+  trust: ["Free", "45 minutes", "No technical knowledge needed", "No commitment"],
 }
 
 export const footer = {
   brand: "SahyogAI",
-  links: [
-    { label: "Home", href: "/" },
-    { label: "What We Do", href: "#comparison" },
-    { label: "Contact", href: "#booking" },
+  tagline: "AI-First Technology for Growing Businesses",
+  description: "We help SMEs and local businesses adopt AI, automate operations, and unlock sustainable growth through practical digital transformation.",
+  services: [
+    { label: "AI Enablement",         href: "#services" },
+    { label: "Technology Enablement", href: "#services" },
+    { label: "Automation",            href: "#services" },
+    { label: "Digital Transformation",href: "#services" },
+    { label: "Voice AI Systems",      href: "#services" },
   ],
-  copy: "© 2025 SahyogAI. All rights reserved.",
+  company: [
+    { label: "About",        href: "#about" },
+    { label: "How It Works", href: "#how-it-works" },
+    { label: "Industries",   href: "#industries" },
+    { label: "Blog",         href: "#blog" },
+    { label: "Careers",      href: "#careers" },
+  ],
+  copy: "© 2026 SahyogAI. All rights reserved.",
+}
+
+export const contact = {
+  email: "contact.aniketwagh@gmail.com",
+  phone: "9322365844",
+  phoneDisplay: "+91 93223 65844",
+  phoneHref: "tel:+919322365844",
+  whatsapp: "https://wa.me/919322365844",
+}
+
+export const booking = {
+  heading: "Book a Free Strategy Call",
 }

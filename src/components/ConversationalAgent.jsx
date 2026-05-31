@@ -57,6 +57,8 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
   const [secondsLeft, setSecondsLeft] = useState(300)
   const plasmaRef = useRef(null)
   const timerRef = useRef(null)
+  const stopRef = useRef(null)
+  const isStoppingRef = useRef(false)
 
   const { isConnecting } = usePipecatConnectionState()
 
@@ -81,18 +83,21 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
     plasmaRef.current?.updateConfig?.(cfg)
   }, [isSpeaking, isThinking])
 
-  // 5-minute hard limit
+  // Keep stopRef current so the timer always calls the latest stop closure
+  useEffect(() => { stopRef.current = stop })
+
+  // 5-minute hard limit — uses stopRef to avoid stale closure
   useEffect(() => {
     if (!open) return
     setSecondsLeft(300)
     timerRef.current = setInterval(() => {
       setSecondsLeft((s) => {
-        if (s <= 1) { stop(); return 0 }
+        if (s <= 1) { stopRef.current?.(); return 0 }
         return s - 1
       })
     }, 1000)
     return () => clearInterval(timerRef.current)
-  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [open])
 
   async function start() {
     setPermissionDenied(false)
@@ -111,14 +116,24 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
   }
 
   async function stop() {
+    if (isStoppingRef.current) return
+    isStoppingRef.current = true
     clearInterval(timerRef.current)
     setOpen(false)
     setIsSpeaking(false)
     setIsThinking(false)
-    await handleDisconnect?.()
-    // Remount PipecatAppBase after the close animation (~500 ms) so the
-    // internal RTVI client is fully reset before the next connect attempt.
-    setTimeout(() => onSessionEnd?.(), 550)
+    try {
+      await handleDisconnect?.()
+    } catch (e) {
+      console.warn("[ConversationalAgent] disconnect error:", e)
+    } finally {
+      // Remount PipecatAppBase after the close animation (~500 ms) so the
+      // internal RTVI client is fully reset before the next connect attempt.
+      setTimeout(() => {
+        onSessionEnd?.()
+        isStoppingRef.current = false
+      }, 550)
+    }
   }
 
   const statusLabel = isConnecting
@@ -133,7 +148,7 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
       <AnimatePresence>
         {!open && (
           <motion.div
-            className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2"
+            className="fixed bottom-24 right-4 z-[9999] flex flex-col items-end gap-2 sm:bottom-6 sm:right-6"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
@@ -167,7 +182,7 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
           <>
             {/* Scrim — mobile only, tap to close */}
             <motion.div
-              className="fixed inset-0 z-40 bg-black/40 sm:hidden"
+              className="fixed inset-0 z-[9998] bg-black/40 sm:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -180,7 +195,7 @@ function AgentWidget({ client, handleConnect, handleDisconnect, error, onSession
             */}
             <motion.div
               className="
-                fixed z-50 bg-white flex flex-col overflow-hidden
+                fixed z-[9999] bg-white flex flex-col overflow-hidden
                 inset-x-0 bottom-0 rounded-t-3xl h-[75vh]
                 sm:inset-x-auto sm:bottom-6 sm:right-6 sm:h-auto sm:w-80 sm:rounded-2xl
               "

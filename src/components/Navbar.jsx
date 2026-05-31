@@ -6,6 +6,7 @@ import { nav, contact } from "../content/site"
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState("")
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -21,69 +22,61 @@ export default function Navbar() {
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
     >
       <div
-        className={`max-w-6xl mx-auto transition-all duration-500 ease-in-out rounded-2xl ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.08)] border border-gray-100 px-6 sm:px-8 py-3"
-            : "bg-white/95 backdrop-blur-md shadow-[0_4px_24px_rgba(0,0,0,0.08)] border border-gray-100 px-6 sm:px-8 py-3"
+        className={`max-w-6xl mx-auto transition-all duration-500 ease-in-out rounded-2xl bg-white/95 backdrop-blur-md border border-gray-100 px-5 sm:px-7 py-3 ${
+          scrolled ? "shadow-[0_4px_24px_rgba(0,0,0,0.08)]" : "shadow-[0_2px_12px_rgba(0,0,0,0.05)]"
         }`}
       >
         <div className="flex items-center justify-between">
-          {/* Logo */}
+          {/* Logo + badge */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Link to="/" className="flex items-center space-x-3">
+            <Link to="/" className="flex items-center gap-2.5">
               <img
                 src="/assets/logo.png"
-                alt="FutureFlow AI Logo"
-                className="rounded-lg w-[44px] h-[44px] object-contain"
+                alt="SahyogAI"
+                className="rounded-lg w-9 h-9 object-contain"
               />
-              <span className="text-lg font-bold text-ink">{nav.brand}</span>
+              <span className="text-base font-bold text-ink">{nav.brand}</span>
+              <span className="hidden sm:inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold border border-primary/30 bg-primary/5 text-primary leading-none">
+                {nav.badge}
+              </span>
             </Link>
           </motion.div>
 
-          {/* Desktop nav links with stagger */}
-          <div className="hidden md:flex items-center space-x-1">
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center space-x-0.5">
             {nav.links.map((link, i) => (
               <motion.div
                 key={link.label}
-                initial={{ opacity: 0, y: -16 }}
+                initial={{ opacity: 0, y: -14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.3 + i * 0.08, ease: "easeOut" }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.07, ease: "easeOut" }}
               >
                 <a
                   href={link.href}
-                  className="relative px-4 py-2 rounded-xl group cursor-pointer"
+                  className="relative px-3.5 py-2 rounded-xl group cursor-pointer"
                 >
-                  <span className="text-gray-700 font-medium group-hover:text-primary transition-colors duration-300">
+                  <span className="text-gray-600 text-sm font-medium group-hover:text-primary transition-colors duration-200">
                     {link.label}
                   </span>
-                  <span className="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-btn rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  <span className="absolute bottom-1 left-3.5 right-3.5 h-0.5 bg-gradient-btn rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
                 </a>
               </motion.div>
             ))}
           </div>
 
-          {/* CTA + Phone */}
+          {/* CTA button */}
           <motion.div
-            className="hidden md:flex items-center gap-3"
+            className="hidden md:flex items-center"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.55 }}
           >
-            <a
-              href={contact.phoneHref}
-              className="flex items-center gap-1.5 text-gray-700 font-medium text-sm hover:text-primary transition-colors duration-200"
-            >
-              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
-              {contact.phoneDisplay}
-            </a>
             <a href={nav.cta.href}>
-              <button className="bg-gradient-btn hover:opacity-90 text-white font-semibold px-6 py-3 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 text-sm">
+              <button className="bg-gradient-btn hover:opacity-90 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md hover:shadow-[0_4px_16px_rgba(124,59,237,0.30)] transition-all duration-300 text-sm">
                 {nav.cta.label}
               </button>
             </a>
@@ -91,18 +84,16 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2 rounded-xl hover:bg-purple-50 transition-all duration-300"
+            className="md:hidden p-2 rounded-xl hover:bg-purple-50 transition-all duration-200"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
-            <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <svg className="h-5 w-5 text-gray-700" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               {menuOpen ? (
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               ) : (
                 <>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 12h16" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 18h16" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
                 </>
               )}
             </svg>
@@ -115,33 +106,35 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden mt-3 pt-3 border-t border-gray-100 flex flex-col space-y-1 pb-2"
+            className="md:hidden mt-3 pt-3 border-t border-gray-100 flex flex-col space-y-0.5 pb-3"
           >
             {nav.links.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="px-4 py-2 rounded-xl text-gray-700 font-medium hover:text-primary hover:bg-purple-50 transition-colors duration-200"
+                className="px-3 py-2.5 rounded-xl text-gray-700 text-sm font-medium hover:text-primary hover:bg-purple-50 transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
-            <a href={nav.cta.href} onClick={() => setMenuOpen(false)}>
-              <button className="w-full mt-2 bg-gradient-btn text-white font-semibold px-6 py-3 rounded-xl shadow-md text-sm">
-                {nav.cta.label}
-              </button>
-            </a>
-            <a
-              href={contact.phoneHref}
-              onClick={() => setMenuOpen(false)}
-              className="flex items-center justify-center gap-2 mt-1 px-4 py-2.5 rounded-xl border border-gray-200 text-gray-700 font-medium text-sm hover:bg-purple-50 hover:text-primary transition-colors duration-200"
-            >
-              <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-              </svg>
-              {contact.phoneDisplay}
-            </a>
+            <div className="pt-2 space-y-2">
+              <a href={nav.cta.href} onClick={() => setMenuOpen(false)}>
+                <button className="w-full bg-gradient-btn text-white font-semibold px-5 py-3 rounded-xl text-sm">
+                  {nav.cta.label}
+                </button>
+              </a>
+              <a
+                href={contact.phoneHref}
+                onClick={() => setMenuOpen(false)}
+                className="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl border border-gray-200 text-gray-600 text-sm font-medium hover:bg-purple-50 hover:text-primary transition-colors duration-200"
+              >
+                <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                </svg>
+                {contact.phoneDisplay}
+              </a>
+            </div>
           </motion.div>
         )}
       </div>

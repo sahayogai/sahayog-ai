@@ -1,11 +1,16 @@
 import { lazy, Suspense } from "react"
 import SEOHead from "../components/SEOHead"
 import HeroSection from "../components/HeroSection"
-import ComparisonSection from "../components/ComparisonSection"
-import FeaturesSection from "../components/FeaturesSection"
+import ServicesSection from "../components/ServicesSection"
+import UVPSection from "../components/UVPSection"
 import HowItWorks from "../components/HowItWorks"
+import AIServicesSection from "../components/AIServicesSection"
+import MetricsSection from "../components/MetricsSection"
+import TestimonialsSection from "../components/TestimonialsSection"
+import IndustriesSection from "../components/IndustriesSection"
+import CTASection from "../components/CTASection"
 
-// Lazy-load CalCom widget — it uses browser-only APIs and must not run during SSR
+// Lazy-load CalCom widget — uses browser-only APIs, must not run during SSR
 const BookingSection = lazy(() => import("../components/BookingSection"))
 
 export default function Home() {
@@ -13,17 +18,22 @@ export default function Home() {
     <>
       <SEOHead />
       <HeroSection />
-      <ComparisonSection />
-      <FeaturesSection />
+      <ServicesSection />
+      <UVPSection />
       <HowItWorks />
+      <AIServicesSection />
+      <MetricsSection />
+      <TestimonialsSection />
+      <IndustriesSection />
+      <CTASection />
       <Suspense fallback={
-        <section id="booking" className="py-24 bg-white">
+        <section id="booking" className="px-4 pb-24 pt-0" style={{ background: "#0f172a" }}>
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-neutral-800 mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-10">
               Book a Free Strategy Call
             </h2>
-            <div className="rounded-3xl border border-gray-100 shadow-xl bg-white min-h-[600px] flex items-center justify-center">
-              <p className="text-gray-400 text-sm">Loading calendar…</p>
+            <div className="rounded-3xl min-h-[600px] flex items-center justify-center" style={{ border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)" }}>
+              <p className="text-gray-500 text-sm">Loading calendar…</p>
             </div>
           </div>
         </section>

@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
 
-# Point all crawlers to the sitemap
+# Block common noise paths (404s that waste crawl budget)
+Disallow: /api/
+Disallow: /*.json$
+
+# Sitemap
 Sitemap: https://www.sahayogai.in/sitemap.xml

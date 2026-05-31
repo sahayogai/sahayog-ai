@@ -15,13 +15,27 @@ export default function BookingSection() {
   }, [])
 
   return (
-    <section id="booking" className="py-16 md:py-24 px-4 bg-white">
+    <section
+      id="booking"
+      className="px-4 pb-24 pt-0"
+      style={{ background: "#0f172a" }}
+    >
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-neutral-800 tracking-tight leading-tight mb-10">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-3">
           {booking.heading}
         </h2>
+        <p className="text-gray-400 text-base mb-10">
+          Pick a time that works for you — 45 minutes, no commitment.
+        </p>
 
-        <div className="rounded-3xl border border-gray-100 shadow-xl overflow-hidden bg-white min-h-[600px]">
+        <div
+          className="rounded-3xl overflow-hidden"
+          style={{
+            border: "1px solid rgba(255,255,255,0.08)",
+            background: "rgba(255,255,255,0.03)",
+            boxShadow: "0 8px 40px rgba(0,0,0,0.40), 0 0 0 1px rgba(124,59,237,0.12)",
+          }}
+        >
           <Cal
             namespace="30min"
             calLink="aniket-wagh-zzgnej/30min"
@@ -29,7 +43,7 @@ export default function BookingSection() {
             config={{
               layout: "month_view",
               useSlotsViewOnSmallScreen: "true",
-              theme: "lite",
+              theme: "dark",
             }}
           />
         </div>
