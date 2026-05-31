@@ -31,7 +31,7 @@ export const hero = {
     "Results in 30 days",
   ],
   stats: [
-    { value: "50+",  label: "SMEs Transformed" },
+    { value: "10+",  label: "SMEs Transformed" },
     { value: "3×",   label: "Average Efficiency Gain" },
     { value: "30d",  label: "To First Results" },
   ],
@@ -184,7 +184,7 @@ export const metrics = [
   { value: "3×",    label: "Efficiency Improvement" },
   { value: "60%",   label: "Reduction in Manual Work" },
   { value: "30 days", label: "Time to First Results" },
-  { value: "50+",   label: "Businesses Transformed" },
+  { value: "10+",   label: "Businesses Transformed" },
 ]
 
 export const testimonials = [
