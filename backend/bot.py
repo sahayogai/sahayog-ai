@@ -22,7 +22,7 @@ import os
 
 from loguru import logger
 
-from pipecat.frames.frames import TextFrame
+from pipecat.frames.frames import TTSSpeakFrame
 from pipecat.pipeline.pipeline import Pipeline
 from pipecat.pipeline.runner import PipelineRunner
 from pipecat.pipeline.task import PipelineParams, PipelineTask
@@ -142,7 +142,7 @@ async def bot(runner_args: RunnerArguments) -> None:
                 )]
             ),
             vad_analyzer=SileroVADAnalyzer(
-                params=VADParams(stop_secs=0.2)
+                params=VADParams(start_secs=0.4, stop_secs=0.2)
             ),
         ),
     )
@@ -178,7 +178,7 @@ async def bot(runner_args: RunnerArguments) -> None:
         logger.info("Client connected — waiting for browser audio to be ready…")
         await asyncio.sleep(1.5)
         logger.info("Queuing greeting…")
-        await task.queue_frames([TextFrame(GREETING)])
+        await task.queue_frames([TTSSpeakFrame(text=GREETING, append_to_context=True)])
 
     @transport.event_handler("on_client_disconnected")
     async def on_client_disconnected(*_):
