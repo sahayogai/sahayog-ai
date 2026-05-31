@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 import { motion, useInView, AnimatePresence } from "framer-motion"
-import { industriesData } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 // ── Icons — white outline, visible at ~25% opacity ──────────────────────────
 const ICON = (path, path2) => (
@@ -21,35 +21,11 @@ const INDUSTRY_ICONS = {
   "real-estate":          ICON("M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z"),
 }
 
-// Label displayed on card eyebrow badge
-const EYEBROW_LABEL = {
-  retail:                  "RETAIL",
-  hospitality:             "HOSPITALITY",
-  logistics:               "LOGISTICS",
-  healthcare:              "HEALTHCARE",
-  finance:                 "FINANCE",
-  "professional-services": "PROFESSIONAL SERVICES",
-  education:               "EDUCATION",
-  "real-estate":           "REAL ESTATE",
-}
-
-// Per-filter subheadings matching the Figma screens
-const SUBHEADINGS = {
-  all:                     "Select your industry to see exactly how SahyogAI works for you.",
-  retail:                  "Real AI systems, built for real workflows. See what we can automate for your retail business.",
-  hospitality:             "AI built around how hospitality businesses actually run — bookings, guests, and operations.",
-  logistics:               "Real systems, real outcomes. See exactly how SahyogAI transforms operations in your industry.",
-  healthcare:              "Real AI systems, built for real workflows. Pick your industry to see what we can automate.",
-  finance:                 "Purpose-built AI systems mapped to the real workflows of your industry — see exactly how it works for you.",
-  "professional-services": "Specialised AI systems tailored to your industry. See exactly how SahyogAI transforms your day-to-day operations.",
-  education:               "Purpose-built AI systems tailored to how your industry actually operates.",
-  "real-estate":           "Real systems, real outcomes. See exactly how SahyogAI transforms operations in your industry.",
-}
-
 // ── Gradient image area ───────────────────────────────────────────────────────
 // With image: full-bleed object-cover, no tint/opacity overlay.
 // No image: gradient + abstract SVG icon fallback.
-function GradientArea({ gradientFrom, gradientTo, industryId, height, image }) {
+// `label` is the (translated) industry name shown in the eyebrow badge.
+function GradientArea({ gradientFrom, gradientTo, industryId, height, image, label }) {
   return (
     <div
       className="relative overflow-hidden"
@@ -62,7 +38,7 @@ function GradientArea({ gradientFrom, gradientTo, industryId, height, image }) {
       {image && (
         <img
           src={image}
-          alt={EYEBROW_LABEL[industryId]}
+          alt={label}
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
         />
@@ -80,8 +56,8 @@ function GradientArea({ gradientFrom, gradientTo, industryId, height, image }) {
         className="absolute top-3 left-3 z-[2] rounded-full px-3 py-1"
         style={{ background: "rgba(0,0,0,0.30)", backdropFilter: "blur(6px)" }}
       >
-        <span className="text-[9px] font-bold text-white tracking-widest leading-none">
-          {EYEBROW_LABEL[industryId]}
+        <span className="text-[9px] font-bold text-white tracking-widest leading-none uppercase">
+          {label}
         </span>
       </div>
 
@@ -98,7 +74,7 @@ function GradientArea({ gradientFrom, gradientTo, industryId, height, image }) {
 }
 
 // ── Full detail card (3-col industry view) ────────────────────────────────────
-function IndustryCard({ card, industryId, gradientFrom, gradientTo, delay }) {
+function IndustryCard({ card, industryId, label, gradientFrom, gradientTo, delay, cardCta }) {
   return (
     <motion.div
       className="bg-white rounded-3xl border border-gray-100 shadow-card overflow-hidden flex flex-col"
@@ -106,7 +82,7 @@ function IndustryCard({ card, industryId, gradientFrom, gradientTo, delay }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, delay }}
     >
-      <GradientArea gradientFrom={gradientFrom} gradientTo={gradientTo} industryId={industryId} height={220} image={card.image} />
+      <GradientArea gradientFrom={gradientFrom} gradientTo={gradientTo} industryId={industryId} height={220} image={card.image} label={label} />
 
       <div className="p-6 flex flex-col flex-1">
         {/* Title + AI label */}
@@ -134,7 +110,7 @@ function IndustryCard({ card, industryId, gradientFrom, gradientTo, delay }) {
           href="#booking"
           className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-dark transition-colors duration-200"
         >
-          See How It Works →
+          {cardCta}
         </a>
       </div>
     </motion.div>
@@ -157,6 +133,7 @@ function CompactCard({ industry, inView, delay, onClick }) {
         industryId={industry.id}
         height={150}
         image={industry.allImage}
+        label={industry.label}
       />
       <div className="px-4 py-3.5">
         <p className="text-sm font-bold text-ink leading-snug">{industry.label}</p>
@@ -173,6 +150,7 @@ const PILL_ORDER = [
 ]
 
 export default function IndustriesSection() {
+  const { industriesData, ui } = useLanguage().t
   const { industries, heading, cta } = industriesData
   const [active, setActive] = useState("all")
   const ref = useRef(null)
@@ -193,14 +171,14 @@ export default function IndustriesSection() {
         >
           {/* Pill eyebrow — matches Screen 2/3 */}
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-semibold text-primary tracking-widest uppercase border border-primary/25 bg-primary/6">
-            INDUSTRIES
+            {ui.industriesEyebrow}
           </span>
 
           <h2 className="mt-3 text-3xl md:text-5xl font-bold text-ink tracking-tight leading-tight">
             {heading}
           </h2>
           <p className="mt-3 text-base text-muted max-w-xl mx-auto leading-relaxed">
-            {SUBHEADINGS[active]}
+            {ui.industriesSubheadings[active]}
           </p>
         </motion.div>
 
@@ -213,7 +191,7 @@ export default function IndustriesSection() {
         >
           {PILL_ORDER.map((id) => {
             const ind = industries.find((i) => i.id === id)
-            const label = id === "all" ? "All" : ind?.label ?? id
+            const label = id === "all" ? ui.industriesAll : ind?.label ?? id
             const isActive = active === id
             return (
               <button
@@ -266,9 +244,11 @@ export default function IndustriesSection() {
                   key={card.title}
                   card={card}
                   industryId={active}
+                  label={activeIndustry.label}
                   gradientFrom={activeIndustry.gradientFrom}
                   gradientTo={activeIndustry.gradientTo}
                   delay={i * 0.07}
+                  cardCta={ui.industriesCardCta}
                 />
               ))}
             </motion.div>
@@ -282,7 +262,7 @@ export default function IndustriesSection() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Don't see your industry? We've likely done it.{" "}
+          {ui.industriesBottomNote}{" "}
           <a href={cta.href} className="font-semibold text-primary hover:underline">
             {cta.label} →
           </a>

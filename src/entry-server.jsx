@@ -1,6 +1,7 @@
 import { renderToString } from "react-dom/server"
 import { StaticRouter } from "react-router-dom"
 import { HelmetProvider } from "react-helmet-async"
+import { LanguageProvider } from "./i18n/LanguageContext"
 import App from "./App"
 
 export function render(url) {
@@ -8,7 +9,9 @@ export function render(url) {
   const html = renderToString(
     <HelmetProvider context={helmetContext}>
       <StaticRouter location={url}>
-        <App />
+        <LanguageProvider>
+          <App />
+        </LanguageProvider>
       </StaticRouter>
     </HelmetProvider>
   )

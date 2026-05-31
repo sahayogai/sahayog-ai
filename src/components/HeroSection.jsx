@@ -1,7 +1,6 @@
 import { motion } from "framer-motion"
-import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { hero, trustBar } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 function GlowOrb({ style, animate, transition }) {
   return (
@@ -16,6 +15,8 @@ function GlowOrb({ style, animate, transition }) {
 
 export default function HeroSection() {
   const ref = useRef(null)
+  const { t } = useLanguage()
+  const { hero, trustBar } = t
 
   return (
     <>
@@ -117,12 +118,12 @@ export default function HeroSection() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 1.0 }}
           >
-            {hero.trust.map((t) => (
-              <span key={t} className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+            {hero.trust.map((item) => (
+              <span key={item} className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
                 <svg className="w-3.5 h-3.5 text-primary shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                 </svg>
-                {t}
+                {item}
               </span>
             ))}
           </motion.div>

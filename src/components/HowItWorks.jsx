@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { howItWorks } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 const STEP_ICONS = [
   <svg key="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-5 h-5">
@@ -20,6 +20,7 @@ const STEP_ICONS = [
 export default function HowItWorks() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  const { howItWorks } = useLanguage().t
 
   return (
     <section id="how-it-works" ref={ref} className="py-20 md:py-28 px-4 bg-white">

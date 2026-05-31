@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { aiServices } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 const SERVICE_ICONS = [
   // AI Strategy - roadmap
@@ -32,6 +32,7 @@ const SERVICE_ICONS = [
 export default function AIServicesSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  const { aiServices } = useLanguage().t
 
   return (
     <section ref={ref} className="py-20 md:py-28 px-4 bg-surface-soft">

@@ -1,6 +1,7 @@
-import { footer, contact } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 export default function Footer() {
+  const { footer, contact, ui } = useLanguage().t
   return (
     <footer style={{ background: "#0f172a" }}>
       {/* Separator */}
@@ -53,7 +54,7 @@ export default function Footer() {
 
           {/* Col 2 — Services */}
           <div>
-            <h4 className="text-sm font-semibold text-white tracking-wide mb-5">Services</h4>
+            <h4 className="text-sm font-semibold text-white tracking-wide mb-5">{ui.footer.servicesTitle}</h4>
             <ul className="space-y-3">
               {footer.services.map((link) => (
                 <li key={link.label}>
@@ -67,7 +68,7 @@ export default function Footer() {
 
           {/* Col 3 — Company */}
           <div>
-            <h4 className="text-sm font-semibold text-white tracking-wide mb-5">Company</h4>
+            <h4 className="text-sm font-semibold text-white tracking-wide mb-5">{ui.footer.companyTitle}</h4>
             <ul className="space-y-3">
               {footer.company.map((link) => (
                 <li key={link.label}>
@@ -81,7 +82,7 @@ export default function Footer() {
 
           {/* Col 4 — Contact */}
           <div>
-            <h4 className="text-sm font-semibold text-white tracking-wide mb-5">Get in Touch</h4>
+            <h4 className="text-sm font-semibold text-white tracking-wide mb-5">{ui.footer.contactTitle}</h4>
             <ul className="space-y-3">
               <li>
                 <a href={`mailto:${contact.email}`} className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors duration-200">
@@ -105,7 +106,7 @@ export default function Footer() {
               onMouseEnter={e => { e.currentTarget.style.background = "rgba(124,59,237,0.12)" }}
               onMouseLeave={e => { e.currentTarget.style.background = "transparent" }}
             >
-              Book a Free Call →
+              {ui.footer.cta}
             </a>
           </div>
         </div>
@@ -116,8 +117,8 @@ export default function Footer() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-gray-500">{footer.copy}</p>
           <div className="flex items-center gap-5">
-            <a href="#" className="text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200">Privacy Policy</a>
-            <a href="#" className="text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200">Terms of Service</a>
+            <a href="#" className="text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200">{ui.footer.privacy}</a>
+            <a href="#" className="text-xs text-gray-500 hover:text-gray-300 transition-colors duration-200">{ui.footer.terms}</a>
             <span className="text-xs text-gray-500">GST</span>
           </div>
         </div>

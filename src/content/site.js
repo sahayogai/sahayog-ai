@@ -610,4 +610,35 @@ export const contact = {
 
 export const booking = {
   heading: "Book a Free Strategy Call",
+  note: "Pick a time that works for you — 45 minutes, no commitment.",
+}
+
+// Misc UI labels that are not part of a larger content block.
+export const ui = {
+  testimonialsHeading: "What Our Clients Say",
+  metricsNote: "Based on outcomes across clients in retail, services, and operations sectors.",
+  industriesEyebrow: "INDUSTRIES",
+  industriesAll: "All",
+  industriesCardCta: "See How It Works →",
+  industriesBottomNote: "Don't see your industry? We've likely done it.",
+  // Per-filter subheadings (keyed by industry id; "all" is the default view).
+  industriesSubheadings: {
+    all:                     "Select your industry to see exactly how SahyogAI works for you.",
+    retail:                  "Real AI systems, built for real workflows. See what we can automate for your retail business.",
+    hospitality:             "AI built around how hospitality businesses actually run — bookings, guests, and operations.",
+    logistics:               "Real systems, real outcomes. See exactly how SahyogAI transforms operations in your industry.",
+    healthcare:              "Real AI systems, built for real workflows. Pick your industry to see what we can automate.",
+    finance:                 "Purpose-built AI systems mapped to the real workflows of your industry — see exactly how it works for you.",
+    "professional-services": "Specialised AI systems tailored to your industry. See exactly how SahyogAI transforms your day-to-day operations.",
+    education:               "Purpose-built AI systems tailored to how your industry actually operates.",
+    "real-estate":           "Real systems, real outcomes. See exactly how SahyogAI transforms operations in your industry.",
+  },
+  footer: {
+    servicesTitle: "Services",
+    companyTitle:  "Company",
+    contactTitle:  "Get in Touch",
+    cta:           "Book a Free Call →",
+    privacy:       "Privacy Policy",
+    terms:         "Terms of Service",
+  },
 }

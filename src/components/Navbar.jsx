@@ -1,12 +1,82 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Link } from "react-router-dom"
 import { motion } from "framer-motion"
-import { nav, contact } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
+
+function LanguageDropdown() {
+  const { lang, setLang, LANGUAGES } = useLanguage()
+  const [open, setOpen] = useState(false)
+  const ref = useRef(null)
+
+  const current = LANGUAGES.find((l) => l.code === lang) || LANGUAGES[0]
+
+  // Close on outside click
+  useEffect(() => {
+    function handler(e) {
+      if (ref.current && !ref.current.contains(e.target)) setOpen(false)
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler)
+  }, [])
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-gray-200 hover:border-primary/40 hover:bg-purple-50 transition-all duration-200 text-sm font-medium text-gray-600"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+      >
+        <span className="text-base leading-none">{current.flag}</span>
+        <span className="hidden sm:inline">{current.nativeLabel}</span>
+        <svg
+          className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+
+      {open && (
+        <motion.div
+          initial={{ opacity: 0, y: -6, scale: 0.97 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.15, ease: "easeOut" }}
+          className="absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-2xl shadow-[0_8px_24px_rgba(0,0,0,0.10)] overflow-hidden z-50"
+          role="listbox"
+        >
+          {LANGUAGES.map((l) => (
+            <button
+              key={l.code}
+              role="option"
+              aria-selected={l.code === lang}
+              onClick={() => { setLang(l.code); setOpen(false) }}
+              className={`w-full flex items-center gap-2.5 px-4 py-2.5 text-sm transition-colors duration-150 ${
+                l.code === lang
+                  ? "bg-primary/10 text-primary font-semibold"
+                  : "text-gray-700 hover:bg-purple-50 hover:text-primary"
+              }`}
+            >
+              <span className="text-base leading-none">{l.flag}</span>
+              <span>{l.nativeLabel}</span>
+              {l.code === lang && (
+                <svg className="ml-auto w-3.5 h-3.5 text-primary shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              )}
+            </button>
+          ))}
+        </motion.div>
+      )}
+    </div>
+  )
+}
 
 export default function Navbar() {
+  const { t, lang, setLang, LANGUAGES } = useLanguage()
+  const { nav, contact } = t
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("")
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -50,7 +120,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-0.5">
             {nav.links.map((link, i) => (
               <motion.div
-                key={link.label}
+                key={link.href}
                 initial={{ opacity: 0, y: -14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.07, ease: "easeOut" }}
@@ -68,13 +138,14 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA button */}
+          {/* Right side: language picker + CTA */}
           <motion.div
-            className="hidden md:flex items-center"
+            className="hidden md:flex items-center gap-2"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.55 }}
           >
+            <LanguageDropdown />
             <a href={nav.cta.href}>
               <button className="bg-gradient-btn hover:opacity-90 text-white font-semibold px-5 py-2.5 rounded-xl shadow-md hover:shadow-[0_4px_16px_rgba(124,59,237,0.30)] transition-all duration-300 text-sm">
                 {nav.cta.label}
@@ -110,7 +181,7 @@ export default function Navbar() {
           >
             {nav.links.map((link) => (
               <a
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
                 className="px-3 py-2.5 rounded-xl text-gray-700 text-sm font-medium hover:text-primary hover:bg-purple-50 transition-colors duration-200"
@@ -134,6 +205,22 @@ export default function Navbar() {
                 </svg>
                 {contact.phoneDisplay}
               </a>
+              {/* Language picker in mobile menu */}
+              <div className="flex gap-2 pt-1">
+                {LANGUAGES.map((l) => (
+                  <button
+                    key={l.code}
+                    onClick={() => { setLang(l.code); setMenuOpen(false) }}
+                    className={`flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl border text-sm font-medium transition-colors duration-200 ${
+                      lang === l.code
+                        ? "border-primary bg-primary/5 text-primary"
+                        : "border-gray-200 text-gray-600 hover:bg-purple-50 hover:text-primary"
+                    }`}
+                  >
+                    {l.flag} {l.nativeLabel}
+                  </button>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}

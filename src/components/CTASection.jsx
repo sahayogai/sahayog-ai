@@ -1,10 +1,11 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { cta } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 export default function CTASection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  const { cta } = useLanguage().t
 
   return (
     <section
@@ -95,12 +96,12 @@ export default function CTASection() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          {cta.trust.map((t) => (
-            <span key={t} className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
+          {cta.trust.map((item) => (
+            <span key={item} className="flex items-center gap-1.5 text-xs text-gray-500 font-medium">
               <svg className="w-3.5 h-3.5 text-primary shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
               </svg>
-              {t}
+              {item}
             </span>
           ))}
         </motion.div>

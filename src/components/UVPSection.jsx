@@ -1,11 +1,17 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { uvp } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 export default function UVPSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  const { uvp } = useLanguage().t
+
+  // heading is an array; everything but the last segment is plain, the last is gradient-highlighted.
+  const headParts = uvp.heading
+  const headLead = headParts.slice(0, -1).join(" ")
+  const headAccent = headParts[headParts.length - 1]
 
   return (
     <section ref={ref} className="py-20 md:py-28 px-4" style={{ background: "#0f172a" }}>
@@ -22,11 +28,8 @@ export default function UVPSection() {
               {uvp.eyebrow}
             </p>
             <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight tracking-tight">
-              Most agencies start with{" "}
-              <span className="text-white">technology.</span>
-              <br />
-              We start with{" "}
-              <span className="text-gradient-brand">your business.</span>
+              {headLead}{" "}
+              <span className="text-gradient-brand">{headAccent}</span>
             </h2>
             <p className="mt-6 text-base text-gray-400 leading-relaxed max-w-md">
               {uvp.body}

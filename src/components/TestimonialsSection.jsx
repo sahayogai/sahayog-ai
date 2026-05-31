@@ -1,6 +1,6 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { testimonials } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 function Stars({ count }) {
   return (
@@ -17,6 +17,7 @@ function Stars({ count }) {
 export default function TestimonialsSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  const { testimonials, ui } = useLanguage().t
 
   return (
     <section ref={ref} className="py-20 md:py-28 px-4 bg-white">
@@ -28,30 +29,30 @@ export default function TestimonialsSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-3xl md:text-5xl font-bold text-ink tracking-tight">
-            What Our Clients Say
+            {ui.testimonialsHeading}
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {testimonials.map((t, i) => (
+          {testimonials.map((item, i) => (
             <motion.div
-              key={t.name}
+              key={item.name}
               className="bg-white rounded-2xl border border-gray-100 shadow-card p-7 flex flex-col"
               initial={{ opacity: 0, y: 28 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <Stars count={t.stars} />
+              <Stars count={item.stars} />
               <p className="text-sm text-ink font-medium leading-relaxed flex-1 italic">
-                "{t.quote}"
+                "{item.quote}"
               </p>
               <div className="mt-5 pt-5 border-t border-gray-100 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-full bg-gradient-btn flex items-center justify-center shrink-0">
-                  <span className="text-xs font-bold text-white">{t.initials}</span>
+                  <span className="text-xs font-bold text-white">{item.initials}</span>
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-ink leading-none">{t.name}</p>
-                  <p className="text-xs text-muted mt-0.5">{t.company}</p>
+                  <p className="text-sm font-semibold text-ink leading-none">{item.name}</p>
+                  <p className="text-xs text-muted mt-0.5">{item.company}</p>
                 </div>
               </div>
             </motion.div>

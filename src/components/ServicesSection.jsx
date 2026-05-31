@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { services } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 const ICONS = [
   // AI Enablement - brain/spark
@@ -25,6 +25,7 @@ const ICONS = [
 export default function ServicesSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  const { services } = useLanguage().t
 
   return (
     <section id="services" ref={ref} className="py-20 md:py-28 px-4 bg-white">

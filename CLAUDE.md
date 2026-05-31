@@ -23,6 +23,31 @@ Change business name, phone, hero text, features, FAQ — everything is in `site
 
 `siteConfig.url` in `site.js` must match the live domain — it is used in canonical URLs, OG tags, sitemap, and JSON-LD.
 
+## Internationalization (i18n)
+The site supports **English (default), Hindi, Marathi** and is shareable per-language via a URL param: `?lang=hin`, `?lang=mar` (English = no param).
+
+```
+src/content/site.js     # English — single source of truth for ALL copy
+src/i18n/translations.js # merge engine + LANGUAGES list (deep-merges overrides onto English)
+src/i18n/hin.js          # Hindi  — TEXT ONLY (omitted fields fall back to English)
+src/i18n/mar.js          # Marathi — TEXT ONLY
+src/i18n/LanguageContext.jsx # provider + useLanguage() hook; syncs ?lang= in the URL
+```
+
+How components read content:
+```jsx
+import { useLanguage } from "../i18n/LanguageContext"
+const { hero, services } = useLanguage().t   // same shape as site.js exports
+```
+`t` is the active language's content, deep-merged over English — so any field a
+translation doesn't provide automatically shows English.
+
+**To edit English copy** → edit `src/content/site.js` only.
+**To fix a translation** → edit the matching key in `hin.js` / `mar.js`.
+**To add a language** → copy `hin.js` → `xx.js`, translate, then add it to `overrides` and `LANGUAGES` in `translations.js`. No component changes needed.
+
+> Translation files only contain *translatable text*. Structural fields (hrefs, image paths, colours, numbers, names) live solely in `site.js` and are shared across all languages.
+
 ## Project Structure
 ```
 output-site/

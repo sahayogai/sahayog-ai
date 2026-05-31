@@ -1,8 +1,9 @@
 import Cal, { getCalApi } from "@calcom/embed-react"
 import { useEffect } from "react"
-import { booking } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 export default function BookingSection() {
+  const { booking } = useLanguage().t
   useEffect(() => {
     ;(async function () {
       const cal = await getCalApi({ namespace: "30min" })
@@ -25,7 +26,7 @@ export default function BookingSection() {
           {booking.heading}
         </h2>
         <p className="text-gray-400 text-base mb-10">
-          Pick a time that works for you — 45 minutes, no commitment.
+          {booking.note}
         </p>
 
         <div

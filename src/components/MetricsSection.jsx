@@ -1,10 +1,11 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import { metrics } from "../content/site"
+import { useLanguage } from "../i18n/LanguageContext"
 
 export default function MetricsSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-60px" })
+  const { metrics, ui } = useLanguage().t
 
   return (
     <section
@@ -35,7 +36,7 @@ export default function MetricsSection() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          Based on outcomes across clients in retail, services, and operations sectors.
+          {ui.metricsNote}
         </motion.p>
       </div>
     </section>
